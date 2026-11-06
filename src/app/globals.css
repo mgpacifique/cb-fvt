@@ -1,0 +1,418 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 20% 97%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 173 80% 36%;
+  --accent-foreground: 0 0% 100%;
+  --ease-emil-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dark {
+  --background: 224 71% 4%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 9%;
+  --card-foreground: 210 40% 98%;
+  --border: 217 33% 17%;
+  --muted: 217 33% 13%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 173 80% 40%;
+  --accent-foreground: 0 0% 100%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  color: hsl(var(--foreground));
+  background: #030712;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html:not(.dark) body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   Apple Bento Grid & HIG Card Design System (Mockup-Calibrated)
+   ========================================================================== */
+
+.apple-card {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
+  transition: transform 180ms var(--ease-emil-out), border-color 180ms ease, box-shadow 180ms ease;
+}
+
+html:not(.dark) .apple-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+}
+
+.apple-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(20, 184, 166, 0.4);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.55);
+}
+
+html:not(.dark) .apple-card-hover:hover {
+  border-color: rgba(20, 184, 166, 0.5);
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.08);
+}
+
+.apple-badge-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.apple-arrow-btn {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 160ms var(--ease-emil-out);
+}
+
+html:not(.dark) .apple-arrow-btn {
+  background: #f1f5f9;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  color: #64748b;
+}
+
+.apple-arrow-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(1px, -1px);
+}
+
+html:not(.dark) .apple-arrow-btn:hover {
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+/* ==========================================================================
+   VisionOS Liquid Glass & Apple HIG Material System
+   ========================================================================== */
+
+/* Primary Floating Glass Surface (Dark Mode Baseline) */
+.liquid-glass {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 24px 60px -12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 16px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* Top Floating Pill Capsule */
+.liquid-glass-pill {
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 16px 40px -8px rgba(0, 0, 0, 0.55),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Decoupled Liquid Glass KPI Tiles */
+.liquid-glass-tile {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: 
+    0 14px 34px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 160ms var(--ease-emil-out), border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.liquid-glass-tile:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 20px 48px -10px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(52, 211, 153, 0.15),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Sub-panel inner glass */
+.liquid-glass-inner {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Light Mode Liquid Glass Overrides (Calibrated High Contrast, Zero Washout) */
+html:not(.dark) .liquid-glass {
+  background: rgba(248, 250, 252, 0.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+html:not(.dark) .liquid-glass-pill {
+  background: rgba(248, 250, 252, 0.92);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 
+    0 10px 32px rgba(0, 0, 0, 0.07),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+}
+
+html:not(.dark) .liquid-glass-tile {
+  background: rgba(248, 250, 252, 0.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+html:not(.dark) .liquid-glass-tile:hover {
+  border-color: rgba(5, 150, 105, 0.5);
+  box-shadow: 
+    0 14px 36px rgba(0, 0, 0, 0.09),
+    0 0 16px rgba(5, 150, 105, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+html:not(.dark) .liquid-glass-inner {
+  background: rgba(241, 245, 249, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* ==========================================================================
+   Emil Kowalski Tactile Button & Spring Micro-interactions
+   ========================================================================== */
+
+/* Emil Kowalski Tabular Numeral & Financial Digit Alignment */
+.tabular-nums,
+table,
+.kpi-value,
+.font-mono,
+[data-tabular="true"] {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-feature-settings: "tnum" 1;
+  font-feature-settings: "tnum" 1;
+}
+
+.btn-pressable {
+  transition: transform 160ms var(--ease-emil-out), background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  will-change: transform;
+}
+
+.btn-pressable:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-pressable:active {
+  transform: scale(0.97);
+}
+
+/* Shimmer Loading Skeleton Pulse */
+@keyframes glassShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  background-size: 200% 100%;
+  animation: glassShimmer 1.8s infinite linear;
+}
+
+/* Popover & Modal Enter / Exit States */
+.modal-enter {
+  animation: modalEnter 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center;
+}
+
+.modal-exit {
+  animation: modalExit 160ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
+  transform-origin: center;
+}
+
+.popover-enter {
+  animation: popoverEnter 180ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  transform-origin: var(--transform-origin, top);
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalExit {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98) translateY(4px);
+  }
+}
+
+@keyframes popoverEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   Illuminated Trajectory Animations
+   ========================================================================== */
+
+@keyframes pulseGlowRing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.pulse-node-ring {
+  animation: pulseGlowRing 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes pulseGlowRingLag {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.pulse-node-ring-lag {
+  animation: pulseGlowRingLag 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* Custom Scrollbar for Drawer Content */
+.custom-glass-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-glass-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-glass-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+.custom-glass-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+/* Accessible Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn-pressable:active {
+    transform: none !important;
+  }
+}
+
+.print-only {
+  display: none !important;
+}
+
+/* Clean Print Policy Brief Stylesheet */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    overflow: visible !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
