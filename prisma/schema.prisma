@@ -1,0 +1,95 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Market {
+  id           String           @id @default(uuid())
+  marketId     Int              @unique
+  name         String
+  country      String
+  countryCode  String
+  admin1       String?
+  admin2       String?
+  latitude     Float?
+  longitude    Float?
+  corridorId   String?
+  prices       CommodityPrice[]
+  createdAt    DateTime         @default(now())
+}
+
+model CommodityPrice {
+  id             String   @id @default(uuid())
+  marketId       Int
+  market         Market   @relation(fields: [marketId], references: [marketId])
+  commodity      String
+  commodityId    Int
+  date           String   // YYYY-MM-DD
+  priceLocal     Float?
+  usdPricePerKg  Float?
+  usdPricePerMt  Float?
+  unit           String?
+  currency       String?
+  pricetype      String?
+  priceflag      String?
+  source         String   @default("WFP")
+  qualityStatus  String   @default("ACCEPTED") // ACCEPTED, REJECTED_DUPLICATE, REJECTED_NULL, HELD_UNMAPPED
+  createdAt      DateTime @default(now())
+
+  @@index([marketId, commodityId, date])
+  @@index([date])
+}
+
+model IngestionRun {
+  id                  String   @id @default(uuid())
+  runId               String   @unique
+  source              String
+  fileName            String
+  startedAt           DateTime @default(now())
+  completedAt         DateTime?
+  totalRows           Int      @default(0)
+  acceptedRows        Int      @default(0)
+  rejectedDuplicates  Int      @default(0)
+  rejectedNulls       Int      @default(0)
+  heldUnmapped        Int      @default(0)
+  fxPending           Int      @default(0)
+  status              String   @default("COMPLETED") // RUNNING, COMPLETED, FAILED
+  notes               String?
+}
+
+model PolicyEventRecord {
+  id               String   @id @default(uuid())
+  code             String   @unique
+  date             String
+  corridorId       String
+  title            String
+  category         String
+  description      String
+  observedImpact   String
+  divergenceDelta  String
+  sourceProvenance String
+  reviewDate       String
+}
+
+model User {
+  id               String    @id @default(uuid())
+  name             String
+  email            String    @unique
+  username         String    @unique
+  passwordHash     String
+  salt             String
+  role             String    @default("admin") // "admin" | "super_admin"
+  organization     String    @default("African Leadership University / CB-FVT Core")
+  title            String    @default("Data Operations & ETL Lead")
+  isActive         Boolean   @default(true)
+  lastLoginAt      DateTime?
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
