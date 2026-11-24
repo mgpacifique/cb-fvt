@@ -1,0 +1,66 @@
+services:
+  # ============================================================================
+  # 1. Analyst / Observer Public Spatial App (Port 3000)
+  # ============================================================================
+  frontend:
+    container_name: cbfvt-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: cb-fvt/frontend:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+      - NEXT_PUBLIC_ADMIN_URL=http://localhost:4000
+    depends_on:
+      admin:
+        condition: service_healthy
+    networks:
+      - cbfvt-net
+
+  # ============================================================================
+  # 2. Dedicated Admin Control Plane & Ingestion Engine (Port 4000)
+  # ============================================================================
+  admin:
+    container_name: cbfvt-admin
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    image: cb-fvt/admin:latest
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+    volumes:
+      # Persistent storage volume for SQLite DB and Dynamic Admin Users
+      - cbfvt_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - cbfvt-net
+
+# ==============================================================================
+# Persistent Storage Volumes
+# ==============================================================================
+volumes:
+  cbfvt_data:
+    name: cbfvt_persistent_data
+    driver: local
+
+# ==============================================================================
+# Bridge Network
+# ==============================================================================
+networks:
+  cbfvt-net:
+    name: cbfvt_network
+    driver: bridge
