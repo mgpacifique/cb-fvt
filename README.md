@@ -4,8 +4,13 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-24_Alpine-green?style=flat-square&logo=node.js)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Multi--Container-2496ED?style=flat-square&logo=docker)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Render-Deployed_Live-46E3B7?style=flat-square&logo=render)](https://cb-fvt-frontend.onrender.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![Academic: ALU](https://img.shields.io/badge/Institution-African_Leadership_University-red?style=flat-square)](https://www.alueducation.com/)
+
+> 🚀 **Live Production Deployment on Render:**
+> - **Public Spatial Intelligence Monitor:** [https://cb-fvt-frontend.onrender.com/](https://cb-fvt-frontend.onrender.com/) *(Zero-login required / Public Analyst Mode)*
+> - **Dedicated Admin Control Plane:** [https://cb-fvt-admin.onrender.com/](https://cb-fvt-admin.onrender.com/) *(Secured Gateway / Port 4000 equivalent)*
 
 **CB-FVT** is an empirical spatial intelligence and econometric observatory designed to monitor cross-border grain arbitrage, price transmission, and market friction across East African Community (EAC) trade corridors.
 
@@ -244,9 +249,19 @@ DATA_DIR=/app/data
 
 ## Production Cloud Deployment (Render & Cloud VPS)
 
-### Option A: 1-Click Cloud Deployment via Render (`render.yaml`)
+### Option A: Live Production Deployment on Render
 
-CB-FVT includes an automated [render.yaml](render.yaml) Infrastructure as Code (Blueprint) specification for [Render.com](https://render.com).
+The platform is officially deployed and accessible on Render under automated HTTPS:
+
+| Service | Role | Public Production URL |
+|:---|:---|:---|
+| **`cb-fvt-frontend`** | Public Spatial Application (Next.js) | [https://cb-fvt-frontend.onrender.com/](https://cb-fvt-frontend.onrender.com/) |
+| **`cb-fvt-admin`** | Dedicated Admin Control Plane (Node 24) | [https://cb-fvt-admin.onrender.com/](https://cb-fvt-admin.onrender.com/) |
+| **Admin Health Check** | Control Plane Status Probe | [https://cb-fvt-admin.onrender.com/health](https://cb-fvt-admin.onrender.com/health) |
+
+#### Deploying Your Own Instance via Render Blueprint (`render.yaml`):
+
+CB-FVT includes an automated [render.yaml](render.yaml) Infrastructure as Code specification:
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
@@ -258,8 +273,8 @@ CB-FVT includes an automated [render.yaml](render.yaml) Infrastructure as Code (
    - **`cb-fvt-frontend`:** Public spatial monitor running Next.js.
    - **`cb-fvt-admin`:** Dedicated admin control plane running Node 24.
 6. Under environment variables:
-   - In `cb-fvt-frontend`: set `NEXT_PUBLIC_ADMIN_URL` to your admin service URL (e.g. `https://cb-fvt-admin.onrender.com`).
-   - In `cb-fvt-admin`: set `NEXT_PUBLIC_APP_URL` to your frontend service URL (e.g. `https://cb-fvt-frontend.onrender.com`).
+   - In `cb-fvt-frontend`: set `NEXT_PUBLIC_ADMIN_URL` to your admin service URL (`https://cb-fvt-admin.onrender.com`).
+   - In `cb-fvt-admin`: set `NEXT_PUBLIC_APP_URL` to your frontend service URL (`https://cb-fvt-frontend.onrender.com`).
 7. Click **Apply**. Both services will build and deploy live with free automatic SSL certificates (`https://...onrender.com`)!
 
 ---
