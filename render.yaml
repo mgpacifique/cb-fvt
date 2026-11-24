@@ -1,0 +1,43 @@
+# ==============================================================================
+# Render.com Infrastructure Blueprint Specification (render.yaml)
+# Project: CB-FVT (East Africa Cross-Border Food Volatility Tracking Engine)
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # 1. Analyst / Observer Public Spatial Application (Port 3000 -> 10000 on Render)
+  # ============================================================================
+  - type: web
+    name: cb-fvt-frontend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
+      - key: NEXT_PUBLIC_ADMIN_URL
+        sync: false
+
+  # ============================================================================
+  # 2. Dedicated Admin Control Plane (Port 4000 -> 10000 on Render)
+  # ============================================================================
+  - type: web
+    name: cb-fvt-admin
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install --legacy-peer-deps
+    startCommand: npm run start:admin
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false

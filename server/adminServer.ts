@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { UserStore, toSafeUser } from '../src/lib/auth/userStore.ts';
 
-const PORT = 4000;
+const PORT = parseInt(process.env.PORT || '4000', 10);
 
 function parseCookies(req: IncomingMessage): Record<string, string> {
   const list: Record<string, string> = {};
@@ -38,13 +38,17 @@ function verifyAdminSession(req: IncomingMessage): boolean {
 }
 
 function sendJson(res: ServerResponse, statusCode: number, data: any) {
-  res.writeHead(statusCode, {
+  const origin = (res as any).__origin || process.env.NEXT_PUBLIC_APP_URL || '*';
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
-    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  });
+  };
+  if (origin !== '*') {
+    headers['Access-Control-Allow-Credentials'] = 'true';
+  }
+  res.writeHead(statusCode, headers);
   res.end(JSON.stringify(data, null, 2));
 }
 
@@ -564,19 +568,24 @@ function getAdminHtml(isAuthenticated: boolean): string {
 }
 
 const server = http.createServer(async (req, res) => {
-  const host = req.headers.host || 'localhost:4000';
+  const origin = req.headers.origin || process.env.NEXT_PUBLIC_APP_URL || '*';
+  (res as any).__origin = origin;
+  const host = req.headers.host || `localhost:${PORT}`;
   const parsedUrl = new URL(req.url || '/', `http://${host}`);
   const pathname = parsedUrl.pathname || '/';
   const method = req.method || 'GET';
 
   // Handle CORS Preflight
   if (method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': 'http://localhost:3000',
-      'Access-Control-Allow-Credentials': 'true',
+    const corsHeaders: Record<string, string> = {
+      'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    });
+    };
+    if (origin !== '*') {
+      corsHeaders['Access-Control-Allow-Credentials'] = 'true';
+    }
+    res.writeHead(204, corsHeaders);
     return res.end();
   }
 

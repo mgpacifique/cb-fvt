@@ -8,6 +8,7 @@
     "dev:all": "node --experimental-strip-types server/adminServer.ts & next dev",
     "build": "next build",
     "start": "next start",
+    "start:admin": "node --experimental-strip-types server/adminServer.ts",
     "lint": "next lint"
   },
   "dependencies": {

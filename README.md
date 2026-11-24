@@ -242,9 +242,31 @@ DATA_DIR=/app/data
 
 ---
 
-## Production Cloud Deployment & SSL (Option 3 Guide)
+## Production Cloud Deployment (Render & Cloud VPS)
 
-To deploy CB-FVT to a live public cloud server (e.g., **DigitalOcean Droplet, AWS EC2, Hetzner, or Linode**) with a custom domain and automated Let's Encrypt SSL certificates, follow this step-by-step production guide:
+### Option A: 1-Click Cloud Deployment via Render (`render.yaml`)
+
+CB-FVT includes an automated [render.yaml](render.yaml) Infrastructure as Code (Blueprint) specification for [Render.com](https://render.com).
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+1. Fork or push this repository to your GitHub account (`https://github.com/<your-username>/cb-fvt`).
+2. Log in to your [Render Dashboard](https://dashboard.render.com/).
+3. Click **New +** &rarr; **Blueprint**.
+4. Select your `cb-fvt` repository and branch `main`.
+5. Render will automatically read `render.yaml` and provision both services on the Free Tier:
+   - **`cb-fvt-frontend`:** Public spatial monitor running Next.js.
+   - **`cb-fvt-admin`:** Dedicated admin control plane running Node 24.
+6. Under environment variables:
+   - In `cb-fvt-frontend`: set `NEXT_PUBLIC_ADMIN_URL` to your admin service URL (e.g. `https://cb-fvt-admin.onrender.com`).
+   - In `cb-fvt-admin`: set `NEXT_PUBLIC_APP_URL` to your frontend service URL (e.g. `https://cb-fvt-frontend.onrender.com`).
+7. Click **Apply**. Both services will build and deploy live with free automatic SSL certificates (`https://...onrender.com`)!
+
+---
+
+### Option B: Cloud VPS Deployment & SSL (DigitalOcean / AWS / Hetzner)
+
+To deploy CB-FVT to a live public virtual private server with a custom domain and automated Let's Encrypt SSL certificates, follow this step-by-step production guide:
 
 ### Step 1: Provision a Cloud Server
 1. Create an **Ubuntu 24.04 LTS** virtual machine (minimum 2 vCPU, 2 GB RAM recommended).
