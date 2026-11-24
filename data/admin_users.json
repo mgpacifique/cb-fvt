@@ -1,0 +1,19 @@
+[
+  {
+    "id": "usr_admin_master_01",
+    "name": "Manzi Gatabazi Pacifique",
+    "email": "p.gatabazi@alustudent.com",
+    "username": "pacifique",
+    "passwordHash": "baefaea46c9337059752229bed5763c420091c1015de799e0ce89311786cf082402cce44259cdaa14f995bdd9ebcb5aa8b759f21d4f69f971eac38d679f4f2a3",
+    "salt": "8a082e93f485226bf97865ef3f0c57ec",
+    "role": "super_admin",
+    "organization": "African Leadership University / CB-FVT Core",
+    "title": "Data Operations & ETL Lead",
+    "isActive": true,
+    "lastLoginAt": "2026-11-24T19:38:48.208Z",
+    "resetCode": "839145",
+    "resetCodeExpiry": 1795549819387,
+    "createdAt": "2026-11-24T19:05:09.583Z",
+    "updatedAt": "2026-11-24T19:05:09.583Z"
+  }
+]
